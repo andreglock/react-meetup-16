@@ -39,7 +39,7 @@ function QueryFiltersExercise() {
   // filtering and pagination are already working properly! No need to change anything there
   // hint: check the typescript error in the queryKey prop...
   const { data } = useQuery({
-    queryKey: ["filteredCharacters"],
+    queryKey: ["filteredCharacters", filter],
     queryFn: getFilteredRicksAndMorties,
   });
   return (
