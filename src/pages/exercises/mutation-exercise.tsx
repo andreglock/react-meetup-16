@@ -80,6 +80,11 @@ function Todo({ todo }: { readonly todo: CompleteTodoI }) {
     const updatedTodo = { ...todo, done: e.target.checked };
     changeTodoMutation.mutate(updatedTodo);
   }
+  const deleteTodoMutation = useMutation({
+    mutationFn: deleteTodo,
+    onSettled: () => queryClient.invalidateQueries({queryKey: ["todos"]})
+  })
+
   const pic = returnPicture(todo.user);
   return (
     <div className="bg-white text-black rounded-lg grid grid-cols-[auto_1fr_auto_auto] items-center gap-4 py-2 px-4">
@@ -98,7 +103,7 @@ function Todo({ todo }: { readonly todo: CompleteTodoI }) {
         width={60}
       ></Image>
       {/* invoke the deletion when clicking this button */}
-      <button onClick={() => alert("implement the delete function first!")}>
+      <button onClick={() => deleteTodoMutation.mutate(todo.id)}>
         <Bin fill="white"></Bin>
       </button>
     </div>
